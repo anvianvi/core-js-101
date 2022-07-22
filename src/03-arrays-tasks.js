@@ -533,8 +533,8 @@ function group(/* array, keySelector, valueSelector */) {
  *   [[1, 2], [3, 4], [5, 6]], (x) => x     =>   [ 1, 2, 3, 4, 5, 6 ]
  *   ['one','two','three'], x=>x.split('')  =>   ['o','n','e','t','w','o','t','h','r','e','e']
  */
-function selectMany(/* arr, childrenSelector */) {
-  throw new Error('Not implemented');
+function selectMany(arr, childrenSelector) {
+  return arr.reduce((acc, item) => acc.concat(childrenSelector(item)), []);
 }
 
 
@@ -550,8 +550,8 @@ function selectMany(/* arr, childrenSelector */) {
  *   ['one','two','three'], [2]       => 'three'  (arr[2])
  *   [[[ 1, 2, 3]]], [ 0, 0, 1 ]      => 2        (arr[0][0][1])
  */
-function getElementByIndexes(/* arr, indexes */) {
-  throw new Error('Not implemented');
+function getElementByIndexes(arr, indexes) {
+  return indexes.reduce((acc, index) => acc[index], arr);
 }
 
 
@@ -576,6 +576,7 @@ function getElementByIndexes(/* arr, indexes */) {
 function swapHeadAndTail(/* arr */) {
   throw new Error('Not implemented');
 }
+// return arr.slice(Math.ceil(arr.length / 2)).concat(arr.slice(0, Math.ceil(arr.length / 2)));
 
 
 module.exports = {
