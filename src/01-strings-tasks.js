@@ -65,9 +65,11 @@ function getStringFromTemplate(firstName, lastName) {
  *   'Hello, John Doe!' => 'John Doe'
  *   'Hello, Chuck Norris!' => 'Chuck Norris'
  */
-function extractNameFromTemplate(value) {
-  const x = value.split(' ');
-  return `${x[1]} ${x[2]}`;
+function extractNameFromTemplate(/* value */) {
+  throw new Error('Not implemented');
+
+  // const x = value.split(' ');
+  // return `${x[1]} ${x[2]}`;
 }
 
 
@@ -207,8 +209,10 @@ function extractEmails(str) {
  *             '└──────────┘\n'
  *
  */
-function getRectangleString(width, height) {
-  return width * height;
+function getRectangleString(/* width, height */) {
+  throw new Error('Not implemented');
+
+  // return width * height;
   // if (width === 0 && height === 0) { return '\n'; }
   // if (width === 0 && height === 1) { return '\n'; }
   // if (width === 1 && height === 0) { return '\n'; }

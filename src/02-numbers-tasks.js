@@ -51,8 +51,10 @@ function getCircleCircumference(radius) {
  *  10, 0  => 5
  *  -3, 3  => 0
  */
-function getAverage(value1, value2) {
-  return (value1 + value2) / 2;
+function getAverage(/* value1, value2 */) {
+  throw new Error('Not implemented');
+
+  // return (value1 + value2) / 2;
 }
 
 /**
@@ -206,14 +208,13 @@ function roundToPowerOfTen(/* num, pow */) {
 // }
 function isPrime(n) {
   if (n <= 1) return false;
-  if (n % 2 == 0 && n > 2) return false;
+  if (n % 2 === 0 && n > 2) return false;
   const s = Math.sqrt(n);
   for (let i = 3; i <= s; i += 2) {
     if (n % i === 0) return false;
   }
   return true;
 }
-console.log(isPrime(121));
 
 /**
  * Tries to convert value to number and returns it if conversion was successful;
