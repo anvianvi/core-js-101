@@ -208,21 +208,22 @@ function extractEmails(str) {
  *
  */
 function getRectangleString(width, height) {
-  if (width === 0 || height === 0) { return '\n'; }
-  if (width === 0 || height === 1) { return '\n'; }
-  if (width === 1 || height === 0) { return '\n'; }
-  if (width === 1 || height === 1) { return '┌\n'; }
-  if (width === 1 || height === 2) { return '┌\n' + '└\n'; }
-  if (width === 2 || height === 1) { return '┌┐\n'; }
-  if (width === 2 || height === 2) { return '┌┐\n' + '└┘\n'; }
-  const vertical = '│';
-  const gorisontal = '─';
-  const spase = ' ';
-  if (width > 2 || height > 2) {
-    return `┌${gorisontal.repeat(width - 2)}┐\n${
-      (`${vertical + spase.repeat(width - 2) + vertical}\n`).repeat(height - 2)
-    }└${gorisontal.repeat(width - 2)}┘\n`;
-  }
+  return width * height;
+  // if (width === 0 && height === 0) { return '\n'; }
+  // if (width === 0 && height === 1) { return '\n'; }
+  // if (width === 1 && height === 0) { return '\n'; }
+  // if (width === 1 && height === 1) { return '┌\n'; }
+  // if (width === 1 && height === 2) { return '┌\n' + '└\n'; }
+  // if (width === 2 && height === 1) { return '┌┐\n'; }
+  // if (width === 2 && height === 2) { return '┌┐\n' + '└┘\n'; }
+  // const vertical = '│';
+  // const gorisontal = '─';
+  // const spase = ' ';
+  // if (width > 2 || height > 2) {
+  //   return `┌${gorisontal.repeat(width - 2)}┐\n${
+  //     (`${vertical} + ${spase.repeat(width - 2)} + ${vertical}\n`).repeat(height - 2)
+  //   }└${gorisontal.repeat(width - 2)}┘\n`;
+  // }
 }
 
 
@@ -242,8 +243,13 @@ function getRectangleString(width, height) {
  *    => 'NOPQRSTUVWXYZABCDEFGHIJKLMnopqrstuvwxyzabcdefghijklm'
  *
  */
-function encodeToRot13(/* str */) {
-  throw new Error('Not implemented');
+function encodeToRot13(str) {
+  return (str || this).split('').map((_) => {
+    if (!_.match(/[A-Za-z]/)) return _;
+    const c = Math.floor(_.charCodeAt(0) / 97);
+    const k = (_.toLowerCase().charCodeAt(0) - 83) % 26 || 26;
+    return String.fromCharCode(k + ((c === 0) ? 64 : 96));
+  }).join('');
 }
 
 /**
