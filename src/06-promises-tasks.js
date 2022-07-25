@@ -93,8 +93,8 @@ function processAllPromises(array) {
  *    })
  *
  */
-function getFastestPromise(/* array */) {
-  throw new Error('Not implemented');
+function getFastestPromise(array) {
+  return Promise.race(array);
 }
 
 /**
@@ -114,8 +114,15 @@ function getFastestPromise(/* array */) {
  *    });
  *
  */
-function chainPromises(/* array, action */) {
-  throw new Error('Not implemented');
+function chainPromises(d, f) {
+  const initial = Promise.resolve('');
+  return d.reduce((r, i) => r.then((a) => i.then((b) => {
+    if (!a) {
+      return b;
+    }
+
+    return f(a, b);
+  }).catch(() => f(a, a))), initial);
 }
 
 module.exports = {

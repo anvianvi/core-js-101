@@ -517,64 +517,72 @@ function distinct(arr) {
  *    "Poland" => ["Lodz"]
  *   }
  */
-function group(/* array, keySelector, valueSelector */) {
-  throw new Error('Not implemented');
+function group(array, keySelector, valueSelector) {
+  return array.reduce((acc, item) => {
+    const key = keySelector(item);
+    const value = valueSelector(item);
+    if (!acc.has(key)) {
+      acc.set(key, []);
+    }
+    acc.get(key).push(value);
+
+    return acc;
+  }, new Map());
 }
 
-
 /**
- * Projects each element of the specified array to a sequence
- * and flattens the resulting sequences into one array.
- *
- * @param {array} arr
- * @param {Function} childrenSelector, a transform function to apply to each element
- *                                     that returns an array of children
- * @return {array}
- *
- * @example
- *   [[1, 2], [3, 4], [5, 6]], (x) => x     =>   [ 1, 2, 3, 4, 5, 6 ]
- *   ['one','two','three'], x=>x.split('')  =>   ['o','n','e','t','w','o','t','h','r','e','e']
- */
+   * Projects each element of the specified array to a sequence
+   * and flattens the resulting sequences into one array.
+   *
+   * @param {array} arr
+   * @param {Function} childrenSelector, a transform function to apply to each element
+   *                                     that returns an array of children
+   * @return {array}
+   *
+   * @example
+   *   [[1, 2], [3, 4], [5, 6]], (x) => x     =>   [ 1, 2, 3, 4, 5, 6 ]
+   *   ['one','two','three'], x=>x.split('')  =>   ['o','n','e','t','w','o','t','h','r','e','e']
+   */
 function selectMany(arr, childrenSelector) {
   return arr.reduce((acc, item) => acc.concat(childrenSelector(item)), []);
 }
 
 
 /**
- * Returns an element from the multidimensional array by the specified indexes.
- *
- * @param {array} arr
- * @param {array} indexes
- * @return {any} element from array
- *
- * @example
- *   [[1, 2], [3, 4], [5, 6]], [0,0]  => 1        (arr[0][0])
- *   ['one','two','three'], [2]       => 'three'  (arr[2])
- *   [[[ 1, 2, 3]]], [ 0, 0, 1 ]      => 2        (arr[0][0][1])
- */
+   * Returns an element from the multidimensional array by the specified indexes.
+   *
+   * @param {array} arr
+   * @param {array} indexes
+   * @return {any} element from array
+   *
+   * @example
+   *   [[1, 2], [3, 4], [5, 6]], [0,0]  => 1        (arr[0][0])
+   *   ['one','two','three'], [2]       => 'three'  (arr[2])
+   *   [[[ 1, 2, 3]]], [ 0, 0, 1 ]      => 2        (arr[0][0][1])
+   */
 function getElementByIndexes(arr, indexes) {
   return indexes.reduce((acc, index) => acc[index], arr);
 }
 
 
 /**
- * Swaps the head and tail of the specified array:
- * the head (first half) of array move to the end, the tail (last half) move to the start.
- * The middle element (if exists) leave on the same position.
- *
- *
- * @param {array} arr
- * @return {array}
- *
- * @example
- *   [ 1, 2, 3, 4, 5 ]   =>  [ 4, 5, 3, 1, 2 ]
- *    \----/   \----/
- *     head     tail
- *
- *   [ 1, 2 ]  => [ 2, 1 ]
- *   [ 1, 2, 3, 4, 5, 6, 7, 8 ]   =>  [ 5, 6, 7, 8, 1, 2, 3, 4 ]
- *
- */
+   * Swaps the head and tail of the specified array:
+   * the head (first half) of array move to the end, the tail (last half) move to the start.
+   * The middle element (if exists) leave on the same position.
+   *
+   *
+   * @param {array} arr
+   * @return {array}
+   *
+   * @example
+   *   [ 1, 2, 3, 4, 5 ]   =>  [ 4, 5, 3, 1, 2 ]
+   *    \----/   \----/
+   *     head     tail
+   *
+   *   [ 1, 2 ]  => [ 2, 1 ]
+   *   [ 1, 2, 3, 4, 5, 6, 7, 8 ]   =>  [ 5, 6, 7, 8, 1, 2, 3, 4 ]
+   *
+   */
 function swapHeadAndTail(arr) {
   const halfLength = Math.floor(arr.length / 2);
   const head = arr.slice(0, halfLength);
